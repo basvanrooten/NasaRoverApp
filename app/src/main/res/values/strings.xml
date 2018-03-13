@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Nasa Rover App</string>
+    <string name="title_activity_detail_view">Details</string>
+    <string name="detail_image_description">Detail view</string>
+    <string name="detail_text">Unknown Camera</string>
+</resources>
