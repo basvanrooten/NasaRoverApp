@@ -1,8 +1,12 @@
 package vanrooten.bas.nasaroverapp.api;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -28,18 +32,24 @@ public class PictureFetcher extends AsyncTask<String, Void, String> {
 
     // Global Declarations
     private OnPictureAvailable listener = null;
+    private Context context;
+    private SweetAlertDialog pDialog;
     private static final String TAG = "PictureFetcher";
     private static final String key = Key.getKey();
-    private ProgressDialog progressDialog;
 
-    public PictureFetcher(OnPictureAvailable listener) {
+    public PictureFetcher(OnPictureAvailable listener, Context context) {
         this.listener = listener;
+        this.context = context;
     }
 
 
     @Override
     protected void onPreExecute() {
-        progressDialog = ProgressDialog.show(context, context.getResources().getString(R.string.text_fetching_title), context.getResources().getString(R.string.text_fetching_message), true);
+        pDialog = new SweetAlertDialog(this.context, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#434343"));
+        pDialog.setTitleText("Loading Data From NASA");
+        pDialog.setCancelable(false);
+        pDialog.show();
     }
 
 
@@ -151,6 +161,9 @@ public class PictureFetcher extends AsyncTask<String, Void, String> {
         } catch (JSONException e) {
             Log.e(TAG, "onPostExecute JSONException: " + e.getLocalizedMessage());
         }
+
+        // Canceling Dialog
+        pDialog.cancel();
     }
 
     private static String getStringFromInputStream(InputStream is){

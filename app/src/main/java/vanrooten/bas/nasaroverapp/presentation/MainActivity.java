@@ -6,7 +6,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.ontbee.legacyforks.cn.pedant.SweetAlert.SweetAlertDialog;
+
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Random;
 
 import vanrooten.bas.nasaroverapp.R;
 import vanrooten.bas.nasaroverapp.api.Key;
@@ -24,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements OnPictureAvailabl
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private ArrayList<Picture> mPictureArrayList = new ArrayList<>();
-
+    private SweetAlertDialog pDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements OnPictureAvailabl
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         String[] params = { mParamsString };
-        PictureFetcher pictureFetcher = new PictureFetcher(this);
+        PictureFetcher pictureFetcher = new PictureFetcher(this, this);
         pictureFetcher.execute(params);
         Log.d(TAG, "Initiated PictureFetcher with mParamsString " + mParamsString + " and Key " + Key.getKey());
 
@@ -44,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements OnPictureAvailabl
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         Log.d(TAG, "mPictureArrayList is filled with " + mPictureArrayList.size() + " items");
+
 
         mAdapter = new PictureAdapter(this, mPictureArrayList);
         mRecyclerView.setAdapter(mAdapter);
@@ -59,5 +64,13 @@ public class MainActivity extends AppCompatActivity implements OnPictureAvailabl
         Log.d(TAG, "Added Picture " + picture.getPictureID() + " to the mPictureArrayList");
         mAdapter.notifyDataSetChanged();
 
+        // Shuffle mPictureArrayList
+        long seed = System.nanoTime();
+        Collections.shuffle(mPictureArrayList, new Random(seed));
+        Log.d(TAG, "mPictureArrayList is shuffled");
+
     }
+
+
+
 }
