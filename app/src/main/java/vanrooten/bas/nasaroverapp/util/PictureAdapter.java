@@ -14,7 +14,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import vanrooten.bas.nasaroverapp.controller.DetailView;
+import vanrooten.bas.nasaroverapp.presentation.DetailView;
 import vanrooten.bas.nasaroverapp.R;
 import vanrooten.bas.nasaroverapp.domain.Picture;
 
@@ -92,7 +92,7 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         holder.mImageID.setText(mDataset.get(position).getPictureID() + "");
-        Log.d(TAG, "ImageID " + mDataset.get(position).getPictureID() + "loaded into the ViewHolder");
+        Log.d(TAG, "ImageID " + mDataset.get(position).getPictureID() + " loaded into the ViewHolder");
         Picasso.get().load(mDataset.get(position).getPictureURL()).into(holder.mImage);
         Log.d(TAG, "Image " + mDataset.get(position).getPictureID() + " loaded into the ViewHolder");
 

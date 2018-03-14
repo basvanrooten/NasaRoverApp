@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".controller.MainActivity">
+        <activity android:name=".presentation.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,13 +20,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".controller.DetailView"
+            android:name=".presentation.DetailView"
             android:label="@string/title_activity_detail_view"
-            android:parentActivityName=".controller.MainActivity"
+            android:parentActivityName=".presentation.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="vanrooten.bas.nasaroverapp.controller.MainActivity" />
+                android:value="vanrooten.bas.nasaroverapp.presentation.MainActivity" />
         </activity>
     </application>
 

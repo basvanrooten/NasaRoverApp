@@ -1,4 +1,4 @@
-package vanrooten.bas.nasaroverapp.controller;
+package vanrooten.bas.nasaroverapp.presentation;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,12 +17,13 @@ import vanrooten.bas.nasaroverapp.util.PictureAdapter;
 
 public class MainActivity extends AppCompatActivity implements OnPictureAvailable {
     private static final String TAG = "MainActivity";
-    private String selectedCamera = "navcam";
-    private String mParamsString = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&camera=" + selectedCamera + "&api_key=" + Key.getKey() + "&total_photos=100";
+    private String selectedCamera = "mast";
+    private int page = 1;
+    private String mParamsString = "https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=" + Key.getKey() + "&earth_date=2018-3-1";
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private ArrayList<Picture> mPictureArrayList;
+    private ArrayList<Picture> mPictureArrayList = new ArrayList<>();
 
 
     @Override
@@ -37,7 +38,6 @@ public class MainActivity extends AppCompatActivity implements OnPictureAvailabl
         pictureFetcher.execute(params);
         Log.d(TAG, "Initiated PictureFetcher with mParamsString " + mParamsString + " and Key " + Key.getKey());
 
-        mPictureArrayList = new ArrayList<>();
         mRecyclerView = (RecyclerView) findViewById(R.id.mainListView);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);

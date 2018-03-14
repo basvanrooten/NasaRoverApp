@@ -1,5 +1,6 @@
 package vanrooten.bas.nasaroverapp.api;
 
+import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -29,10 +30,18 @@ public class PictureFetcher extends AsyncTask<String, Void, String> {
     private OnPictureAvailable listener = null;
     private static final String TAG = "PictureFetcher";
     private static final String key = Key.getKey();
+    private ProgressDialog progressDialog;
 
     public PictureFetcher(OnPictureAvailable listener) {
         this.listener = listener;
     }
+
+
+    @Override
+    protected void onPreExecute() {
+        progressDialog = ProgressDialog.show(context, context.getResources().getString(R.string.text_fetching_title), context.getResources().getString(R.string.text_fetching_message), true);
+    }
+
 
     @Override
     protected String doInBackground(String... params) {
