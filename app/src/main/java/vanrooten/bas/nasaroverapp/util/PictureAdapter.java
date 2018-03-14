@@ -3,7 +3,6 @@ package vanrooten.bas.nasaroverapp.util;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,7 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-import vanrooten.bas.nasaroverapp.DetailView;
+import vanrooten.bas.nasaroverapp.controller.DetailView;
 import vanrooten.bas.nasaroverapp.R;
 import vanrooten.bas.nasaroverapp.domain.Picture;
 
@@ -45,8 +44,9 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
             this.view.setOnClickListener(this);
 
             // Binding mImageID and mImage to the elements in custom_row.xml
-            mImageID = (TextView) view.findViewById(R.id.scroll_picture_id);
             mImage = (ImageView) view.findViewById(R.id.scroll_picture);
+            mImageID = (TextView) view.findViewById(R.id.scroll_pictureID);
+
 
         }
 
@@ -91,10 +91,10 @@ public class PictureAdapter extends RecyclerView.Adapter<PictureAdapter.ViewHold
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.mImageID.setText(mDataset.get(position).getCameraID());
+        holder.mImageID.setText(mDataset.get(position).getPictureID() + "");
         Log.d(TAG, "ImageID " + mDataset.get(position).getPictureID() + "loaded into the ViewHolder");
         Picasso.get().load(mDataset.get(position).getPictureURL()).into(holder.mImage);
-        Log.d(TAG, "Image " + mDataset.get(position).getPictureID() + "loaded into the ViewHolder");
+        Log.d(TAG, "Image " + mDataset.get(position).getPictureID() + " loaded into the ViewHolder");
 
     }
 
